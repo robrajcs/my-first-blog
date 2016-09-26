@@ -1,0 +1,53 @@
+ - python verzió lekérdezés:
+python --version
+
+ - virtuális környezet létrehozása, elindítása:
+python3 -m venv myvenv
+myvenv\Scripts\activate
+
+ - django telepítése:
+(myvenv) ~$ pip install django==1.8
+
+- www.pythonanywhere.com
+
+ - új django projekt:
+(myvenv) django-admin startproject mysite .
+
+ - settings.py
+TIME_ZONE = 'Europe/Budapest'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+ - adatbázis létrehozás:
+(myvenv) ~/djangogirls$ python manage.py migrate
+
+ - webszerver elindítás:
+(myvenv) ~/djangogirls$ python manage.py runserver
+
+ - url:
+http://127.0.0.1:8000/
+
+ - új alkalmazás:
+(myvenv) ~/djangogirls$ python manage.py startapp blog
+
+ - settings.py
+INSTALLED_APPS = ( ... 'blog',)
+
+ - models.py
+from django.db import models
+from django.utils import timezone
+class Post(models.Model):
+    author = models.ForeignKey('auth.User')
+    title = models.CharField(max_length=200)     ...
+
+ - db migrációs fájl készítése:
+(myvenv) ~/djangogirls$ python manage.py makemigrations blog
+
+ - db migráció futtatása
+(myvenv) ~/djangogirls$ python manage.py migrate blog
+
+ - django admin
+from django.contrib import admin
+from .models import Post
+admin.site.register(Post)
+(myvenv) ~/djangogirls$ python manage.py createsuperuser
